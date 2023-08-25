@@ -3,6 +3,7 @@ package com.thanh.mnisShop.service.impl;
 import com.thanh.mnisShop.model.Product;
 import com.thanh.mnisShop.repository.ProductRepository;
 import com.thanh.mnisShop.service.ProductService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
         if (productOptional.isPresent()) {
             productRepository.deleteById(id);
         } else {
-            throw new RuntimeException();
+            throw new EntityNotFoundException("Product not found with id: " + id);
         }
     }
 
