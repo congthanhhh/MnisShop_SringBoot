@@ -1,7 +1,6 @@
 package com.thanh.mnisShop.rest;
 
 import com.thanh.mnisShop.model.Product;
-import com.thanh.mnisShop.repository.ProductRepository;
 import com.thanh.mnisShop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
