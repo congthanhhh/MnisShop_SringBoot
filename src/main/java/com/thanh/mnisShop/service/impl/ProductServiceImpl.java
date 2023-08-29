@@ -1,10 +1,13 @@
 package com.thanh.mnisShop.service.impl;
 
+import com.thanh.mnisShop.dto.CategoryAmountProductDTO;
 import com.thanh.mnisShop.model.Product;
 import com.thanh.mnisShop.repository.ProductRepository;
 import com.thanh.mnisShop.service.ProductService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +20,11 @@ public class ProductServiceImpl implements ProductService {
     ProductRepository productRepository;
 
     @Override
+    public Page<Product> findAllPage(Pageable pageable) {
+        return productRepository.findAll(pageable);
+    }
+
+    @Override
     public List<Product> findAll() {
         return productRepository.findAll();
     }
@@ -27,10 +35,15 @@ public class ProductServiceImpl implements ProductService {
         return productOptional.orElse(null);
     }
 
-//    @Override
-//    public List<Product> findByCategoryId(String cid) {
-//        return null;
-//    }
+    @Override
+    public List<Product> findByCategoryId(String cid) {
+        return productRepository.findByCategoryId(cid);
+    }
+
+    @Override
+    public Page<Product> findByCategoryIdPage(String cid, Pageable pageable) {
+        return productRepository.findByCategoryIdPage(cid, pageable);
+    }
 
     @Override
     public Product create(Product product) {
@@ -65,6 +78,11 @@ public class ProductServiceImpl implements ProductService {
         } else {
             throw new EntityNotFoundException("Product not found with id: " + id);
         }
+    }
+
+    @Override
+    public List<CategoryAmountProductDTO> findAmountProductsOfCategory() {
+        return productRepository.findAmountProductsOfCategory();
     }
 
 
