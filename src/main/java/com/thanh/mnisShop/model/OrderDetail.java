@@ -1,12 +1,14 @@
 package com.thanh.mnisShop.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.*;
-import lombok.Data;
+import jakarta.persistence.*;;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
-@Table(name = "Orderdetails")
+@Table(name = "orderdetails")
 public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,13 +16,13 @@ public class OrderDetail {
 
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "Orderid", referencedColumnName = "Id")
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     @JsonIgnoreProperties(value = {"applications","hibernateLazyInitializer"})
     private Order order;
 
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "Productid", referencedColumnName = "Id")
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     @JsonIgnoreProperties(value = {"applications","hibernateLazyInitializer"})
     private Product product;
 

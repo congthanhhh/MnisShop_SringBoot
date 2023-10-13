@@ -131,7 +131,7 @@
       <div th:each="p: ${items}" class="col-lg-3 col-md-4 col-sm-6 pb-1">
         <div class="product-item bg-light mb-4">
           <div class="product-img position-relative overflow-hidden d-flex justify-content-center">
-            <img class="img-fluid w-75" th:src="@{|/assets/admin/dist/img/products/${p.image}|}" alt="product image">
+            <img class="img-fluid w-75" th:src="@{|/assets/admin/dist/img/products/${p.thumbnail}|}" alt="product image">
             <div class="product-action">
               <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
               <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
@@ -421,28 +421,28 @@
       <div class="col">
         <div class="owl-carousel vendor-carousel">
           <div class="bg-light p-4">
-            <img src="img/vendor-1.jpg" alt="">
+            <img th:src="@{/assets/user/img/vendor-1.jpg}" alt="">
           </div>
           <div class="bg-light p-4">
-            <img src="img/vendor-2.jpg" alt="">
+            <img th:src="@{/assets/user/img/vendor-2.jpg}" alt="">
           </div>
           <div class="bg-light p-4">
-            <img src="img/vendor-3.jpg" alt="">
+            <img th:src="@{/assets/user/img/vendor-3.jpg}" alt="">
           </div>
           <div class="bg-light p-4">
-            <img src="img/vendor-4.jpg" alt="">
+            <img th:src="@{/assets/user/img/vendor-4.jpg}" alt="">
           </div>
           <div class="bg-light p-4">
-            <img src="img/vendor-5.jpg" alt="">
+            <img th:src="@{/assets/user/img/vendor-5.jpg}" alt="">
           </div>
           <div class="bg-light p-4">
-            <img src="img/vendor-6.jpg" alt="">
+            <img th:src="@{/assets/user/img/vendor-6.jpg}" alt="">
           </div>
           <div class="bg-light p-4">
-            <img src="img/vendor-7.jpg" alt="">
+            <img th:src="@{/assets/user/img/vendor-7.jpg}" alt="">
           </div>
           <div class="bg-light p-4">
-            <img src="img/vendor-8.jpg" alt="">
+            <img th:src="@{/assets/user/img/vendor-8.jpg}" alt="">
           </div>
         </div>
       </div>

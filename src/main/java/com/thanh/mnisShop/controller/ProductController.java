@@ -29,32 +29,32 @@ public class ProductController {
         model.addAttribute("items", items);
 
         /*Số lượng products của từng category*/
-        List<CategoryAmountProductDTO> itemsCate = productService.findAmountProductsOfCategory();
-        model.addAttribute("itemsCate", itemsCate);
+//        List<CategoryAmountProductDTO> itemsCate = productService.findAmountProductsOfCategory();
+//        model.addAttribute("itemsCate", itemsCate);
         return "home/product/homeProduct";
     }
 
-    @RequestMapping("/detail/{id}")
-    public String detail(@PathVariable("id") Integer id, Model model) {
-        Product items = productService.findById(id);
-        model.addAttribute("detailPr", items);
-        return "home/product/detailProduct";
-    }
+//    @RequestMapping("/detail/{id}")
+//    public String detail(@PathVariable("id") Long id, Model model) {
+//        Product items = productService.findById(id);
+//        model.addAttribute("detailPr", items);
+//        return "home/product/detailProduct";
+//    }
 
-    @RequestMapping("/shop")
-    public String shop(Model model, @RequestParam("cid")Optional<String> cid,
-                       @RequestParam("page") Optional<Integer> page) {
-        Pageable pageable = PageRequest.of(page.orElse(0),9);
-        Page<Product> items;
-        /* Show product neu chon category */
-        if (cid.isPresent()) {
-            items = productService.findByCategoryIdPage(cid.get(),pageable);
-        } else {
-            items = productService.findAllPage(pageable);
-        }
-        model.addAttribute("items", items);
-        return "home/product/shopProduct";
-    }
+//    @RequestMapping("/shop")
+//    public String shop(Model model, @RequestParam("cid")Optional<String> cid,
+//                       @RequestParam("page") Optional<Integer> page) {
+//        Pageable pageable = PageRequest.of(page.orElse(0),9);
+//        Page<Product> items;
+//        /* Show product neu chon category */
+//        if (cid.isPresent()) {
+//            items = productService.findByCategoryIdPage(cid.get(),pageable);
+//        } else {
+//            items = productService.findAllPage(pageable);
+//        }
+//        model.addAttribute("items", items);
+//        return "home/product/shopProduct";
+//    }
 
 
 }

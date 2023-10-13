@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface AuthorityRepository extends JpaRepository<Authority, Integer> {
+public interface AuthorityRepository extends JpaRepository<Authority, Long> {
 
     @Query("SELECT DISTINCT a FROM Authority a WHERE a.account IN ?1")
     List<Authority> authoritiesOf(List<Account> accounts);

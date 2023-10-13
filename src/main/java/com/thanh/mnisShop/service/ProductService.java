@@ -12,16 +12,16 @@ public interface ProductService {
     Page<Product> findAllPage(Pageable pageable);
     List<Product> findAll();
 
-    Product findById(Integer id);
+    Product findById(Long id);
 
     List<Product> findByCategoryId(String cid);
     Page<Product> findByCategoryIdPage(String cid, Pageable pageable);
 
     Product create(Product product);
 
-    Product update(Integer id, Product product);
+    Product update(Long id, Product product);
 
-    void delete(Integer id);
+    void delete(Long id);
 
 
     List<CategoryAmountProductDTO> findAmountProductsOfCategory();

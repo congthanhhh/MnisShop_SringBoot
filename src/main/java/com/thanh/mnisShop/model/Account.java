@@ -2,13 +2,16 @@ package com.thanh.mnisShop.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
-@Table(name = "Accounts")
+@Table(name = "accounts")
 public class Account {
     @Id
     private String username;
@@ -16,6 +19,10 @@ public class Account {
     private String fullname;
     private String email;
     private String photo;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "createdate")
+    private Date createDate = new Date();
 
     @JsonIgnore
     @OneToMany(mappedBy = "account")

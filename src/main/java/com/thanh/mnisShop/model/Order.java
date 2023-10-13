@@ -3,26 +3,28 @@ package com.thanh.mnisShop.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
-@Table(name = "Orders")
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "Username", referencedColumnName = "Username")
+    @JoinColumn(name = "username", referencedColumnName = "username")
     @JsonIgnoreProperties(value = {"applications","hibernateLazyInitializer"})
     private Account account;
 
-    @Column(name = "createdate")
+    @Column(name = "create_date")
     @CreationTimestamp
     private Timestamp createDate;
 

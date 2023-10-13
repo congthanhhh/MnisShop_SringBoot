@@ -1,5 +1,5 @@
 
-<div th:replace="~{/home/layout/index :: dynamic(~{::shopProduct})}">>
+<div th:replace="~{/home/layout/index :: dynamic(~{::shopProduct})}">
 
   <main th:fragment="shopProduct">
 
@@ -174,7 +174,7 @@
                 <div class="product-img position-relative overflow-hidden d-flex justify-content-center">
                   <img class="img-fluid w-75" th:src="@{|/assets/admin/dist/img/products/${p.image}|}" alt="">
                   <div class="product-action">
-                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                    <a class="btn btn-outline-dark btn-square" th:attr="ng-click=@{|cart.add(${p.id})|}"><i class="fa fa-shopping-cart"></i></a>
                     <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                     <a class="btn btn-outline-dark btn-square" th:href="@{|/product/detail/${p.id}|}"><i class="fa fa-search"></i></a>
