@@ -172,7 +172,7 @@
             <div class="col-lg-4 col-md-6 col-sm-6 pb-1" th:each="p: ${items}">
               <div class="product-item bg-light mb-4">
                 <div class="product-img position-relative overflow-hidden d-flex justify-content-center">
-                  <img class="img-fluid w-75" th:src="@{|/assets/admin/dist/img/products/${p.image}|}" alt="">
+                  <img class="img-fluid w-75" th:src="@{|/assets/admin/dist/img/products/${p.thumbnail}|}" alt="">
                   <div class="product-action">
                     <a class="btn btn-outline-dark btn-square" th:attr="ng-click=@{|cart.add(${p.id})|}"><i class="fa fa-shopping-cart"></i></a>
                     <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
@@ -202,16 +202,16 @@
               <nav>
                 <ul class="pagination justify-content-center">
                   <li class="page-item" th:classappend="${items.number == 0} ? 'disabled' : ''">
-                    <a class="page-link" th:href="@{|/product/shop?page=0|}">First</span></a>
+                    <a class="page-link" th:href="@{|/product/shop${cid != null ? '?cid=' + cid + '&page=' : '?page='}0|}">First</a>
                   </li>
                   <li class="page-item" th:classappend="${items.number == 0} ? 'disabled' : ''">
-                    <a class="page-link" th:href="@{|/product/shop?page=${items.number - 1}|}">Previous</a>
+                    <a class="page-link" th:href="@{|/product/shop${cid != null ? '?cid=' + cid + '&page=' : '?page='}${items.number - 1}|}">Previous</a>
                   </li>
                   <li class="page-item" th:classappend="${items.number + 1 == items.totalPages} ? 'disabled' : ''">
-                    <a class="page-link" th:href="@{|/product/shop?page=${items.number + 1}|}">Next</a>
+                    <a class="page-link" th:href="@{|/product/shop${cid != null ? '?cid=' + cid + '&page=' : '?page='}${items.number + 1}|}">Next</a>
                   </li>
                   <li class="page-item" th:classappend="${items.number + 1 == items.totalPages} ? 'disabled' : ''">
-                    <a class="page-link" th:href="@{|/product/shop?page=${items.totalPages - 1}|}">Last</a>
+                    <a class="page-link" th:href="@{|/product/shop${cid != null ? '?cid=' + cid + '&page=' : '?page='}${items.totalPages - 1}|}">Last</a>
                   </li>
                 </ul>
                 <div class="d-flex justify-content-center">Page [[${items.number+1}]] of [[${items.totalPages}]]</div>

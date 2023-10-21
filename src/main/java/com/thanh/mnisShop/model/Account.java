@@ -21,7 +21,7 @@ public class Account {
     private String photo;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "createdate")
+    @Column(name = "create_date")
     private Date createDate = new Date();
 
     @JsonIgnore

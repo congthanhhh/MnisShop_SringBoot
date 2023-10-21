@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
@@ -20,4 +21,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT new com.thanh.mnisShop.dto.CategoryAmountProductDTO(p.category, COUNT(p.id)) FROM Product p GROUP BY p.category")
     List<CategoryAmountProductDTO> findAmountProductsOfCategory();
+
 }

@@ -9,14 +9,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SecurityController {
 
     @RequestMapping("/login/form")
-    public String loginForm(Model model) {
-
+    public String loginForm() {
         return "home/security/login";
     }
 
-    @RequestMapping("/login/register")
-    public String registerForm(Model model) {
-
-        return "home/security/register";
+    @RequestMapping("/login/success")
+    public String loginSuccess(Model model) {
+        model.addAttribute("message","Login successfully!");
+        return "home/security/login";
     }
+
+    @RequestMapping("/login/error")
+    public String loginError(Model model) {
+        model.addAttribute("message","Username or password invalid!");
+        return "home/security/login";
+    }
+    @RequestMapping("/unAuthorities")
+    public String unAuthorities(Model model) {
+        model.addAttribute("message","You do not have access!");
+        return "home/security/login";
+    }
+    @RequestMapping("/logoff/success")
+    public String logOff(Model model) {
+        model.addAttribute("message","Log out successfully!");
+        return "home/security/login";
+    }
+
+
 }

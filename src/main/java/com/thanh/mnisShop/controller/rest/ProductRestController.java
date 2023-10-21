@@ -1,6 +1,8 @@
-package com.thanh.mnisShop.rest;
+package com.thanh.mnisShop.controller.rest;
 
 import com.thanh.mnisShop.model.Product;
+import com.thanh.mnisShop.model.ProductAttribute;
+import com.thanh.mnisShop.service.ProductAttributeService;
 import com.thanh.mnisShop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,9 @@ public class ProductRestController {
     @Autowired
     ProductService productService;
 
+    @Autowired
+    ProductAttributeService productAttributeService;
+
     @GetMapping
     public ResponseEntity<List<Product>> getAll() {
         return ResponseEntity.ok(productService.findAll());
@@ -29,6 +34,16 @@ public class ProductRestController {
         }
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
+
+    @GetMapping("{productId}/color/{colorId}/sizes")
+    public ResponseEntity<ProductAttribute> getOneProAtt(@PathVariable Long productId, @PathVariable Long colorId) {
+        ProductAttribute productAttribute = productAttributeService.findProductAndSizeById(productId, colorId);
+        if (productAttribute == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(productAttribute, HttpStatus.OK);
+    }
+
 //
     @PostMapping
     public ResponseEntity<Product> create(@RequestBody Product product) {

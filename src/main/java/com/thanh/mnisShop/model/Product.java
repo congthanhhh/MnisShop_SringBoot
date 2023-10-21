@@ -42,10 +42,7 @@ public class Product {
     List<ProductImage> productImages;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product",  fetch = FetchType.EAGER)
     List<ProductAttribute> productAttributes;
 
-//    @ManyToOne
-//    @JoinColumn(name = "Categoryid")
-//    Category category;
 }

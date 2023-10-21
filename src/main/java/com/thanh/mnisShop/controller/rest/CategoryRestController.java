@@ -1,4 +1,4 @@
-package com.thanh.mnisShop.rest;
+package com.thanh.mnisShop.controller.rest;
 
 import com.thanh.mnisShop.model.Category;
 import com.thanh.mnisShop.service.CategoryService;

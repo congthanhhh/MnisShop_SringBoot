@@ -17,31 +17,29 @@
 
 </head>
 
-<body  ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
+<body>
+    <div  ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
 
-<!-- Topbar Start -->
-<div th:replace="~{home/layout/header :: header}"></div>
-<!-- Topbar End -->
-
-
-<div>
-    <main th:insert="${main}"></main>
-</div>
+        <!-- Topbar Start -->
+        <div th:replace="~{home/layout/header :: header}"></div>
+        <!-- Topbar End -->
 
 
+        <div>
+            <main th:insert="${main}"></main>
+        </div>
 
 
+        <!-- Footer Start -->
+        <div th:replace="~{home/layout/footer :: footer}"></div>
+        <!-- Footer End -->
 
-<!-- Footer Start -->
-<div th:replace="~{home/layout/footer :: footer}"></div>
-<!-- Footer End -->
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
-<!-- Back to Top -->
-<a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+        <div th:replace="~{lib/libraries :: footerLink}"></div>
 
-<div th:replace="~{lib/libraries :: footerLink}"></div>
-
-
+    </div>
 
 </body>
 

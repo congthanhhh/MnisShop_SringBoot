@@ -147,3 +147,15 @@ rangeInput.forEach(input => {
 })
 // -------- Filter By price End---------------
 
+
+// Show image trong form register
+function showPreview(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            $('#previewImage').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+

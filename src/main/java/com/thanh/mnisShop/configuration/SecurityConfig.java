@@ -2,6 +2,7 @@ package com.thanh.mnisShop.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,20 +14,35 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.csrf((csrf) -> csrf.disable())
+                .authorizeHttpRequests((auth) -> auth
+                        .requestMatchers("/order/**").authenticated()
+                        .requestMatchers("/home/cart").authenticated()
+                        .anyRequest().permitAll()
+                )
+
+                .httpBasic(Customizer.withDefaults())
+                .formLogin(formLogin -> formLogin
+                        .loginPage("/security/login/form")
+                        .loginProcessingUrl("/security/login")
+                        .defaultSuccessUrl("/security/login/success", false)
+                        .failureUrl("/security/login/error"))
+
+                .exceptionHandling(ex -> ex.accessDeniedPage("/security/unAuthorities"))
+
+                .rememberMe(remember -> remember.tokenValiditySeconds(86400)) //(24*60*60)
+
+                .logout(logout -> logout
+                        .logoutUrl("/security/logoff")
+                        .logoutSuccessUrl("/security/logoff/success"));
+
+        return httpSecurity.build();
+
     }
 
-
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable());
-        http.cors(cors -> cors.disable());
-
-        http.authorizeHttpRequests((authz) -> authz
-                .anyRequest().permitAll()
-        );
-
-        return http.build();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

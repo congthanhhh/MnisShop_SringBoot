@@ -1,4 +1,4 @@
-package com.thanh.mnisShop.rest;
+package com.thanh.mnisShop.controller.rest;
 
 import com.thanh.mnisShop.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;

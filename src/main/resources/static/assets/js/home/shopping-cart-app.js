@@ -1,60 +1,80 @@
 const app = angular.module("shopping-cart-app", []);
 app.controller("shopping-cart-ctrl", function ($scope, $http) {
+
+
   //Quan ly gio hang
   $scope.cart = {
     items: [],
+    selectedColorId: null,
+    selectedSizeId: null,
+    selectedColorName: null,
+    selectedSizeName: null,
+
+    selectColor(id) {
+      this.selectedColorId = id;
+    },
+    selectSize(id) {
+      this.selectedSizeId = id;
+    },
+    selectColorName(name) {
+      this.selectedColorName = name;
+    },
+    selectSizeName(name) {
+      this.selectedSizeName = name;
+    },
+
     //Them san pham vao gio hang
     add(id) {
-      var item = this.items.find((item) => item.id == id);
+      if (this.selectedColorId === null || this.selectedSizeId === null) {
+        alert("Vui lòng chọn cả size và color trước khi thêm vào giỏ hàng.");
+        return false;
+      }
+      let item = this.items.find((item) => item.id === id);
       if (item) {
         item.qty++;
         this.saveToLocalStorage();
       } else {
         $http.get(`/rest/products/${id}`).then((resp) => {
           resp.data.qty = 1;
+
+          resp.data.colorId = this.selectedColorId;
+          resp.data.sizeId = this.selectedSizeId;
+          resp.data.colorName = this.selectedColorName;
+          resp.data.sizeName = this.selectedSizeName;
+
           this.items.push(resp.data);
           this.saveToLocalStorage();
         });
       }
     },
-    // //Xoa san pam khoi gio hang
-    remove(id) {
-      var index = this.items.findIndex((item) => item.id == id);
-      this.items.splice(index, 1);
-      this.saveToLocalStorage();
-    },
-    // //Xoa sach cac sản phẩm trong giỏ
-    clear() {
-      this.items = [];
-      this.saveToLocalStorage();
-    },
-    // //Tinh thanh tien cua mot san pham
-    // amt_of(item) {},
-    // //Tinh tong so luong cac mat hang trong gio
+    //Tinh tong so luong cac mat hang trong gio
     get count() {
       return this.items
-        .map((item) => item.qty)
-        .reduce((total, qty) => (total += qty), 0);
+          .map((item) => item.qty)
+          .reduce((total, qty) => (total += qty), 0);
     },
-    // //Tong thanh tien cac mat hang trong gio
+    //Tong thanh tien cac mat hang trong gio
     get amount() {
       return this.items
-        .map((item) => item.qty * item.price)
-        .reduce((total, qty) => (total += qty), 0);
+          .map((item) => item.qty * item.price)
+          .reduce((total, qty) => (total += qty), 0);
     },
+
     //Luu gio hang vao local storage
     saveToLocalStorage() {
-      var json = JSON.stringify(angular.copy(this.items));
+      let json = JSON.stringify(angular.copy(this.items));
       localStorage.setItem("cart", json);
+
     },
     //Doc gio hang tu LocalStorage
     loadFromLocalStorage() {
-      var json = localStorage.getItem("cart");
+      let json = localStorage.getItem("cart");
       this.items = json ? JSON.parse(json) : [];
     },
   };
   $scope.cart.loadFromLocalStorage();
-  
+
+//Order
   $scope.order = {
     createDate: new Date(),
     address: "",

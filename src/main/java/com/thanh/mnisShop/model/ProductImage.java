@@ -16,7 +16,7 @@ public class ProductImage {
     private String image;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "productid", referencedColumnName = "id")
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
     private Product product;
 }
