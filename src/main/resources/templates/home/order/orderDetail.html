@@ -14,12 +14,12 @@
                     </tr>
                     </thead>
                     <tbody class="align-middle">
-                        <tr>
-                            <td class="align-middle">${i=i+1}</td>
-                            <td class="align-middle"><img src="/template/admin/dist/img/products/${item.product.image}" alt="" style="width: 50px;"></td>
-                            <td class="align-middle">${item.product.name}</td>
+                        <tr th:each="item: ${orderDetail}">
+                            <td class="align-middle" th:text="${item.id}"></td>
+                            <td class="align-middle"> <img th:src="${item.product.thumbnail}" alt="" style="width: 50px;"> </td>
+                            <td class="align-middle" th:text="${item.product.name}"></td>
                             <td class="align-middle">
-                                <fmt:formatNumber value="${item.price}" type="currency" pattern="###,###.## VND"/>
+                                <span th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span><span class="product-custom-currency">đ</span>
                             </td>
                         </tr>
                     </tbody>

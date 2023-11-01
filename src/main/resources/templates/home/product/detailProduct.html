@@ -63,43 +63,51 @@
           <div class="d-flex mb-4">
             <strong class="text-dark mr-3">Sizes:</strong>
             <form>
-              <div class="custom-control custom-radio custom-control-inline" th:each = "att: ${attributePr}">
-                <input type="radio" class="custom-control-input" th:id="'size-' + ${att.sizes.getId()}"
+              <div class="custom-control custom-radio custom-control-inline" th:each = "att: ${productSize}">
+                <input type="radio" class="custom-control-input" th:id="'size-' + ${att.id}" th:value="${att.id}"
                        name="size"
-                       th:attr="ng-click=@{|cart.selectSize(${att.sizes.getId()}); cart.selectSizeName('${att.sizes.getName()}')|}"
+                       th:attr="ng-click=@{|cart.selectSize(${att.getId()}); cart.selectSizeName('${att.getName()}'); cart.showStock(*{id})|}"
                 />
-                <label class="custom-control-label" th:for="'size-' + ${att.sizes.getId()}" th:text="${att.sizes.name}" ></label>
+                <label class="custom-control-label" th:for="'size-' + ${att.getId()}" th:text="${att.name}" ></label>
+
               </div>
             </form>
           </div>
-
           <div class="d-flex mb-4">
             <strong class="text-dark mr-3">Colors:</strong>
             <form>
-              <div class="custom-control custom-radio custom-control-inline" th:each = "att: ${attributePr}">
-                <input type="radio" class="custom-control-input" th:id="'color-' + ${att.colors.getId()}"
+              <div class="custom-control custom-radio custom-control-inline" th:each = "att: ${productColor}">
+                <input type="radio" class="custom-control-input" th:id="'color-' + ${att.getId()}" th:value="${att.id}"
                        name="color"
-                       th:attr="ng-click=@{|cart.selectColor(${att.colors.getId()}); cart.selectColorName('${att.colors.getName()}')|}"/>
-                <label class="custom-control-label" th:for="'color-' + ${att.colors.getId()}" th:text="${att.colors.name}" ></label>
+                       th:attr="ng-click=@{|cart.selectColor(${att.getId()}); cart.selectColorName('${att.getName()}'); cart.showStock(*{id})|}"
+                />
+                <label class="custom-control-label" th:for="'color-' + ${att.getId()}" th:text="${att.name}" ></label>
               </div>
             </form>
           </div>
+          <div id="show-stock-here">Số lượng: {{cart.stock}} </div>
+
           <div class="d-flex align-items-center mb-4 pt-2">
             <div class="input-group quantity mr-3" style="width: 130px;">
               <div class="input-group-btn">
-                <button class="btn btn-primary btn-minus">
+                <button class="btn btn-primary btn-minus" ng-click="cart.selectedQty > 1 ? cart.selectedQty = cart.selectedQty - 1 : null">
                   <i class="fa fa-minus"></i>
                 </button>
               </div>
-              <input type="text" class="form-control bg-secondary border-0 text-center" value="1">
+              <input type="number" class="form-control bg-secondary border-0 text-center" ng-model="cart.selectedQty" min="1">
               <div class="input-group-btn">
-                <button class="btn btn-primary btn-plus">
+                <button class="btn btn-primary btn-plus" ng-click="cart.selectedQty = cart.selectedQty + 1">
                   <i class="fa fa-plus"></i>
                 </button>
               </div>
             </div>
-            <button th:attr="ng-click=@{|cart.add(*{id})|}" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
-              Cart</button>
+
+            <button th:attr="ng-click=@{|cart.add(*{id})|}" class="btn btn-primary px-3" ng-disabled="cart.stock === 0">
+              <i class="fa fa-shopping-cart mr-1"></i>
+              <span ng-show="cart.stock !== 0">Add To Cart</span>
+              <span ng-show="cart.stock === 0">Hết hàng</span>
+            </button>
+
           </div>
           <div class="d-flex pt-2">
             <strong class="text-dark mr-2">Share on:</strong>

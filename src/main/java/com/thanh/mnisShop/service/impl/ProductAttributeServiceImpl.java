@@ -16,13 +16,26 @@ public class ProductAttributeServiceImpl implements ProductAttributeService {
     ProductAttributeRepository productAttributeRepository;
 
     @Override
-    public List<ProductAttribute> findProductAttributeByProductId(Long id) {
-        return productAttributeRepository.findProductAttributeByProductId(id);
+    public List<ProductAttribute> findAll() {
+        return productAttributeRepository.findAll();
     }
 
     @Override
-    public ProductAttribute findProductAndSizeById(Long productId, Long sizeId) {
-        Optional<ProductAttribute> productOptional = productAttributeRepository.findProductAndSizeById(productId, sizeId);
+    public List<ProductAttribute> findProductAttributeByProductId(Long id) {
+        return productAttributeRepository.findProductAttributeByProductId(id);
+    }
+    @Override
+    public Optional<ProductAttribute> findById(Long id) {
+        return productAttributeRepository.findById(id);
+    }
+    @Override
+    public ProductAttribute findProductSizeAndColorById(Long productId, Long colorId, Long sizeId) {
+        Optional<ProductAttribute> productOptional = productAttributeRepository.findProductSizeAndColorById(productId, colorId, sizeId);
         return productOptional.orElse(null);
+    }
+
+    @Override
+    public void updateStockById(Long quantity,Long productId, Long colorId, Long sizeId) {
+        productAttributeRepository.updateStockById(quantity, productId, colorId, sizeId);
     }
 }

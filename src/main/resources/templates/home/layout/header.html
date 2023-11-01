@@ -1,6 +1,6 @@
 <div th:fragment="header">
 
-    <!-- Topbar Start -->
+    <!-- Top bar Start -->
     <div class="container-fluid">
         <div class="row bg-secondary py-1 px-xl-5">
             <div class="col-lg-6 d-none d-lg-block">
@@ -13,15 +13,17 @@
             </div>
             <div class="col-lg-6 text-center text-lg-right">
                 <div class="d-inline-flex align-items-center">
-                    <a href="/admin/account"
-                       class="text-info mr-2" style="text-transform: uppercase;"><strong>Administrator</strong></a>
+                    <div sec:authorize="isAuthenticated()" class="">
 
-                    <h4 class="mb-0 mr-2">|</h4>
-                    <span class="brand-text font-weight-light">${sessionScope.currentUser.username}</span>
-                    <img src="/template/admin/dist/img/users/${sessionScope.currentUser.photo}"
-                         alt="image user" class="photo-user rounded-circle" style="opacity: .8">
+                        <!--                        <h4 class="mb-0 mr-2">|</h4>-->
+                        <span class="brand-text font-weight-light" sec:authentication="principal.fullname"></span>
 
-                    <div class="btn-group mr-3">
+                        <img th:src="@{/assets/home/img/{photo}(photo=${#authentication.principal.photo})}"
+                             alt="image user" class="photo-user rounded-circle" style="opacity: .8">
+
+                    </div>
+
+                    <div class="btn-group mr-3" sec:authorize="!isAuthenticated()">
                         <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown"><i
                                 class="fas fa-user"></i></button>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -36,16 +38,17 @@
                         </div>
                     </div>
 
-                    <div class="btn-group mx-2">
+                    <div class="btn-group mx-2" sec:authorize="isAuthenticated()">
                         <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown"><i
                                 class="fas fa-user-cog"></i></button>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="/home/logout" class="dropdown-item" type="button">Log out <i
+                            <a th:href="@{/security/logoff}" class="dropdown-item" type="button">Log out <i
                                     class="fas fa-sign-out-alt pl-2"></i></a>
                             <a href="/home/customer-info" class="dropdown-item" type="button">My info <i
                                     class="far fa-address-card pl-2"></i></a>
                         </div>
                     </div>
+
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown"><i
                                 class="fas fa-globe-asia"></i></button>
@@ -71,9 +74,9 @@
         </div>
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
             <div class="col-lg-4">
-                <a href="" class="text-decoration-none">
-                    <span class="h1 text-uppercase text-primary bg-dark px-2">MNI</span>
-                    <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
+                <a th:href="@{/product/home}" class="text-decoration-none">
+                    <span class="h1 text-uppercase text-primary bg-dark px-2">mni</span>
+                    <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">shop</span>
                 </a>
             </div>
             <div class="col-lg-4 col-6 text-left">
@@ -89,13 +92,14 @@
                 </form>
             </div>
             <div class="col-lg-4 col-6 text-right">
-                <p class="m-0">Customer Service</p>
-                <h5 class="m-0">+012 345 6789</h5>
+                <div sec:authorize="isAuthenticated()">
+                    <a sec:authorize="hasAnyAuthority('DIRE','STAF')"
+                       href="/admin/account" class="text-info mr-2" style="text-transform: uppercase;"><strong>Administrator</strong></a>
+                </div>
             </div>
         </div>
     </div>
-    <!-- Topbar End -->
-
+    <!-- Top bar End -->
 
     <!-- Navbar Start -->
     <div class="container-fluid bg-dark mb-30">
@@ -149,7 +153,7 @@
                             <a th:href="@{/cart/view}" class="btn px-0 ml-3">
                                 <i class="fas fa-shopping-cart text-primary"></i>
                                 <span class="badge text-secondary border border-secondary rounded-circle"
-                                      style="padding-bottom: 2px;">{{cart.count}}</span>
+                                      style="padding-bottom: 1px;" ng-bind="cart.count" ></span>
                             </a>
                         </div>
                     </div>

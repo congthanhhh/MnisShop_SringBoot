@@ -14,21 +14,19 @@
 
                             <h6 class="mb-3">Price</h6>
                         </div>
-                        <c:forEach var="item" items="${cart.items}">
-                            <div class="d-flex justify-content-between">
-                                <p>${item.name} <span class="ml-2"><strong
-                                        style="font-size: 14px;">x</strong>${item.qty}</span></p>
-                                <p>
-                                    <fmt:formatNumber value="${item.price}" type="currency" pattern="###,###.##"/>
-                                </p>
-                            </div>
-                        </c:forEach>
+                        <div class="d-flex justify-content-between" ng-repeat="item in cart.items">
+                            <p>{{item.name}} <span class="ml-2"><strong
+                                    style="font-size: 14px;">x</strong>{{item.qty}}</span></p>
+                            <p>
+                                ${{item.price | number: 2}}
+                            </p>
+                        </div>
                     </div>
                     <div class="border-bottom pt-3 pb-2">
                         <div class="d-flex justify-content-between mb-3">
                             <h6>Subtotal</h6>
                             <h6>
-                                <fmt:formatNumber value="${cart.amount}" type="currency" pattern="###,###.##"/>
+                                ${{cart.amount | number:2}}
                             </h6>
                         </div>
                         <div class="d-flex justify-content-between">
@@ -40,22 +38,25 @@
                         <div class="d-flex justify-content-between mt-2">
                             <h5>Total</h5>
                             <h5>
-                                <fmt:formatNumber value="${cart.amount}" type="currency" pattern="###,###.## VND"/>
+                                ${{cart.amount | number:2}}
                             </h5>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Address</span>
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Information</span>
                 </h5>
-                <form action="/home/order-detail" method="post" class="checkout-form">
+                    <!--co cai form o day-->
                     <div class="bg-light p-30 mb-3">
                         <div class="row">
                             <div class="col-md form-group">
                                 <label>Address</label>
-                                <input class="form-control" name="address" type="text" placeholder="123 Street"
-                                       required="required">
+                                <input ng-model="order.address" class="form-control" name="address" type="text" placeholder="123 Street" required="required">
+                            </div>
+                            <div class="col-md form-group">
+                                <label>Phone</label>
+                                <input ng-model="order.phone" class="form-control" name="phone" type="text" placeholder="Phone number" required="required">
                             </div>
                         </div>
                     </div>
@@ -81,10 +82,11 @@
                                     <label class="custom-control-label" for="banktransfer">Bank Transfer</label>
                                 </div>
                             </div>
-                            <button class="btn btn-block btn-primary font-weight-bold py-3">Place Order</button>
+                            <div id="orderUsername" sec:authentication="name"></div>
+                            <button ng-click="order.purchase()" class="btn btn-block btn-primary font-weight-bold py-3">Place Order</button>
                         </div>
                     </div>
-                </form>
+                <!--co cai form o day-->
             </div>
         </div>
         <!-- Checkout End -->

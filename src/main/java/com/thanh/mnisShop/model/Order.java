@@ -24,11 +24,12 @@ public class Order {
     @JsonIgnoreProperties(value = {"applications","hibernateLazyInitializer"})
     private Account account;
 
-    @Column(name = "create_date")
+    @Column(name = "createdate")
     @CreationTimestamp
     private Timestamp createDate;
 
     private String address;
+    private String phone;
 
     @JsonIgnore
     @OneToMany(mappedBy = "order")
